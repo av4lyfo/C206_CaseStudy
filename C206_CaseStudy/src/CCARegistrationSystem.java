@@ -6,7 +6,7 @@ public class CCARegistrationSystem {
     private static List<TimeSlot> timeSlots = new ArrayList<>();
     private static List<Attendance> attendanceRecords = new ArrayList<>();
 
-    public static void main(String[] args) {
+    public static void main1(String[] args) {
         initializeData();
 
         Scanner scanner = new Scanner(System.in);
@@ -26,110 +26,7 @@ public class CCARegistrationSystem {
         scanner.close();
     }
 
-    private static void adminMenu() {
-        Scanner scanner = new Scanner(System.in);
-        while (true) {
-            displayAdminMenu();
-            int choice = scanner.nextInt();
-            switch (choice) {
-                case 1:
-                    addUser();
-                    break;
-                case 2:
-                    viewUsers();
-                    break;
-                case 3:
-                    deleteUser();
-                    break;
-                case 4:
-                    addApprovalStatus();
-                    break;
-                case 5:
-                    viewApprovalStatuses();
-                    break;
-                case 6:
-                    deleteApprovalStatus();
-                    break;
-                case 7:
-                    addTimeSlot();
-                    break;
-                case 8:
-                    viewTimeSlots();
-                    break;
-                case 9:
-                    deleteTimeSlot();
-                    break;
-                case 0:
-                    System.out.println("Exiting admin menu.");
-                    return;
-                default:
-                    System.out.println("Invalid choice. Please try again.");
-            }
-        }
-    }
-
-    private static void teacherMenu() {
-        Scanner scanner = new Scanner(System.in);
-        while (true) {
-            displayTeacherMenu();
-            int choice = scanner.nextInt();
-            switch (choice) {
-                case 1:
-                    addActivity();
-                    break;
-                case 2:
-                    viewActivities();
-                    break;
-                case 3:
-                    deleteActivity();
-                    break;
-                case 4:
-                    updateApprovalStatus();
-                    break;
-                case 5:
-                    addAttendance();
-                    break;
-                case 6:
-                    viewAttendance();
-                    break;
-                case 7:
-                    deleteAttendance();
-                    break;
-                case 0:
-                    System.out.println("Exiting teacher menu.");
-                    return;
-                default:
-                    System.out.println("Invalid choice. Please try again.");
-            }
-        }
-    }
-
-    private static void studentMenu() {
-        Scanner scanner = new Scanner(System.in);
-        while (true) {
-            displayStudentMenu();
-            int choice = scanner.nextInt();
-            switch (choice) {
-                case 1:
-                    viewAvailableActivities();
-                    break;
-                case 2:
-                    registerForActivity();
-                    break;
-                case 3:
-                    viewRegisteredActivities();
-                    break;
-                case 4:
-                    leaveActivity();
-                    break;
-                case 0:
-                    System.out.println("Exiting student menu.");
-                    return;
-                default:
-                    System.out.println("Invalid choice. Please try again.");
-            }
-        }
-    }
+ 
 
     // Additional methods for each menu option...
 
@@ -317,7 +214,10 @@ public class CCARegistrationSystem {
                     System.out.println("Invalid choice. Please try again.");
             }
         }
+    }finally {
+        scanner.close();
     }
+}
 
     private static void addUser() {
         Scanner scanner = new Scanner(System.in);
