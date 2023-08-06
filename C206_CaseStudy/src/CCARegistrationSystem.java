@@ -2,7 +2,6 @@ import java.util.*;
 public class CCARegistrationSystem {
     private static List<User> users = new ArrayList<>();
     private static List<Activity> activities = new ArrayList<>();
-    private static List<Registration> registrations = new ArrayList<>();
     private static List<ApprovalStatus> approvalStatuses = new ArrayList<>();
     private static List<TimeSlot> timeSlots = new ArrayList<>();
     private static List<Attendance> attendanceRecords = new ArrayList<>();
@@ -493,13 +492,7 @@ public class CCARegistrationSystem {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Enter activity name to update approval status: ");
         String activityName = scanner.nextLine();
-        Activity activityToUpdate = null;
-        for (Activity activity : activities) {
-            if (activity.getName().equalsIgnoreCase(activityName)) {
-                activityToUpdate = activity;
-                break;
-            }
-        }
+        Activity activityToUpdate = getActivityByName(activityName);
         if (activityToUpdate != null) {
             System.out.print("Enter new approval status name: ");
             String newApprovalStatus = scanner.nextLine();
@@ -582,7 +575,6 @@ public class CCARegistrationSystem {
             System.out.println("Attendance not found.");
         }
     }
-
     // Additional methods for Student Menu
 
     private static void viewAvailableActivities() {

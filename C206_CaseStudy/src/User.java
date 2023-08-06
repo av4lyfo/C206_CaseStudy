@@ -1,6 +1,6 @@
 import java.util.*;
 
-class User {
+public class User {
     private String name;
     private String role;
     private List<Registration> registrations;
