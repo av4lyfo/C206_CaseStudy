@@ -12,7 +12,7 @@ public class Activity {
     public Activity(String name, String description, ApprovalStatus approvalStatus, TimeSlot timeSlot) {
         this.name = name;
         this.description = description;
-        this.approvalStatus = approvalStatus;
+        this.approvalStatus = null;
         this.timeSlot = timeSlot;
         this.registrations = new ArrayList<>();
         this.attendanceList = new ArrayList<>();
@@ -60,5 +60,8 @@ public class Activity {
 
     public boolean removeAttendance(User student) {
         return attendanceList.removeIf(attendance -> attendance.getStudent().equals(student));
+    }
+    public void setApprovalStatus(ApprovalStatus approvalStatus) {
+        this.approvalStatus = approvalStatus;
     }
 }

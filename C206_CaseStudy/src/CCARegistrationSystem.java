@@ -26,7 +26,7 @@ public class CCARegistrationSystem {
         scanner.close();
     }
 
- 
+   
 
     // Additional methods for each menu option...
 
@@ -214,10 +214,10 @@ public class CCARegistrationSystem {
                     System.out.println("Invalid choice. Please try again.");
             }
         }
-    }finally {
+    } {
         scanner.close();
     }
-}
+
 
     private static void addUser() {
         Scanner scanner = new Scanner(System.in);
