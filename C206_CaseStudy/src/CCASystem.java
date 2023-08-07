@@ -1,14 +1,15 @@
 import java.util.*;
 
 public class CCASystem {
-	private static List<User> users = new ArrayList<>();
-	private static List<Activity> activities = new ArrayList<>();
+	private static List<Users> users = new ArrayList<>();
+	private static List<Activities> activities = new ArrayList<>();
+	private static List<RegisterActivity> registerActivities = new ArrayList<>();
 
 	public static void main(String[] args) {
-		users.add(new User("John", "Administrator"));
-		users.add(new User("Zhi Yang", "Teacher"));
-		users.add(new User("Benedict", "Teacher"));
-		users.add(new User("Yik Kan", "Student"));
+		users.add(new Users("John", "Administrator"));
+		users.add(new Users("Zhi Yang", "Teacher"));
+		users.add(new Users("Benedict", "Teacher"));
+		users.add(new Users("Yik Kan", "Student"));
 
 		Scanner scanner = new Scanner(System.in);
 		System.out.print("Enter your username (or 'Leave' to leave): ");
@@ -18,7 +19,7 @@ public class CCASystem {
 
 		while (!name.equalsIgnoreCase("Leave")) {
 			for (int i = 0; i < users.size(); i++) {
-				User login = users.get(i);
+				Users login = users.get(i);
 				String roles = login.getRole();
 				String username = login.getName();
 				if (username.equalsIgnoreCase(name)) {

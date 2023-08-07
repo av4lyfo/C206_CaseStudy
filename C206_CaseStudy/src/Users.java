@@ -1,9 +1,8 @@
-import java.util.*;
-public class User {	
+public class Users {	
 	private String name;
     private String role;
 
-    public User(String name, String role) {
+    public Users(String name, String role) {
         this.name = name;
         this.role = role;
     }
