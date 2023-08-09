@@ -254,8 +254,67 @@ public class CCASystem {
 
 		return userfound;
 	}
+	
+	
+	
+	
+	// guys please add your code based on the order of your user story and use cases 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	// List to store approval statuses
+	private static List<String> approvalStatuses = new ArrayList<>();
+
+	// Add approval status method
+	private static void addApprovalStatus() {
+	  String newStatus = Helper.readString("Enter new approval status: ");
+	  approvalStatuses.add(newStatus);
+	  System.out.println("Approval status added: " + newStatus); 
+	}
+
+	// View approval statuses method
+	private static void viewApprovalStatuses() {
+	  System.out.println("Approval Statuses:");
+	  for (String status : approvalStatuses) {
+	    System.out.println(status);
+	  }
+	}
+
+	// Delete approval status method  
+	private static void deleteApprovalStatus() {
+	  String statusToDelete = Helper.readString("Enter approval status to delete: ");
+	  if (approvalStatuses.contains(statusToDelete)) {
+	    approvalStatuses.remove(statusToDelete);
+	    System.out.println("Approval status deleted: " + statusToDelete);
+	  } else {
+	    System.out.println("Approval status not found.");
+	  }
+	}
+
+	// Update approval status method
+	private static void updateApprovalStatus() {
+	  String oldStatus = Helper.readString("Enter approval status to update: ");
+	  String newStatus = Helper.readString("Enter new approval status: ");
+	  
+	  int index = approvalStatuses.indexOf(oldStatus);
+	  if (index != -1) {
+	    approvalStatuses.set(index, newStatus);
+	    System.out.println("Approval status updated from " + oldStatus + " to " + newStatus);
+	  } else {
+	    System.out.println("Approval status not found.");
+	  }
+	}}
+	
 
 
 	
+	
 
-}
+
+
