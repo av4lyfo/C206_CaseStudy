@@ -310,11 +310,69 @@ public class CCASystem {
 	    System.out.println("Approval status not found.");
 	  }
 	}}
+
+	// edit attendance
+	private static void editAttendance() {
+	    Scanner scanner = new Scanner(System.in);
 	
-
-
+	    String studentName = Helper.readString("Enter student name: ");
+	    String date = Helper.readString("Enter date (YYYY-MM-DD): ");
 	
+	    Users currentUser = getCurrentUser(username); // Implement this method to get the current user
 	
+	    if (currentUser != null) {
+	        String userRole = currentUser.getRole();
+	
+	        if (userRole.equalsIgnoreCase("Administrator") || userRole.equalsIgnoreCase("Teacher")) {
+	            RegisterActivity attendanceToEdit = findAttendanceToEdit(studentName, date);
+	            if (attendanceToEdit != null) {
+	                String newStatus = Helper.readString("Enter new attendance status: ");
+	                attendanceToEdit.setStatus(newStatus);
+	                System.out.println("Attendance record updated.");
+	            } else {
+	                System.out.println("Attendance record not found.");
+	            }
+	        } else {
+	            System.out.println("You do not have permission to edit attendance.");
+	        }
+	    } else {
+	        System.out.println("User not found.");
+	    }
+	}
+	
+	private static RegisterActivity findAttendanceToEdit(String studentName, String date) {
+	    for (RegisterActivity attendance : registerActivities) {
+	        if (attendance.getStudentName().equalsIgnoreCase(studentName) && attendance.getDate().equalsIgnoreCase(date)) {
+	            return attendance;
+	        }
+	    }
+	    return null;
+	}
+	
+	//sorting system CCA, student name, date
+	private static void sortAndFilterAttendance() {
+        int sortChoice = Helper.readInt("Select sorting criteria:\n1. Sort by date\n2. Sort by CCA\n3. Sort by student name\nEnter your choice: ");
 
+        List<RegisterActivity> sortedAttendance = new ArrayList<>(registerActivities);
 
+        switch (sortChoice) {
+            case 1:
+                sortedAttendance.sort(Comparator.comparing(RegisterActivity::getDate));
+                break;
+            case 2:
+                sortedAttendance.sort(Comparator.comparing(RegisterActivity::getActivityName));
+                break;
+            case 3:
+                sortedAttendance.sort(Comparator.comparing(RegisterActivity::getStudentName));
+                break;
+            default:
+                System.out.println("Invalid choice.");
+                return;
+        }
 
+        System.out.println("Sorted and filtered attendance records:");
+        for (RegisterActivity attendance : sortedAttendance) {
+            System.out.println("CCA: " + attendance.getActivityName() + ", Date: " + attendance.getDate() + ", Student: " + attendance.getStudentName() + ", Status: " + attendance.getStatus());
+        }
+	}
+}	
