@@ -6,10 +6,10 @@ public class CCASystem {
 	private static List<RegisterActivity> registerActivities = new ArrayList<>();
 
 	public static void main(String[] args) {
-		users.add(new Users("John", "Administrator"));
-		users.add(new Users("Zhi Yang", "Teacher"));
-		users.add(new Users("Benedict", "Teacher"));
-		users.add(new Users("Yik Kan", "Student"));
+		users.add(new Users("John", "Administrator", "8765 4321"));
+		users.add(new Users("Zhi Yang", "Student", " 9876 5643"));
+		users.add(new Users("Benedict", "Teacher", "9254 5432"));
+		users.add(new Users("Yik Kan", "Student", "8653 3654"));
 
 		Scanner scanner = new Scanner(System.in);
 		System.out.print("Enter your username (or 'Leave' to leave): ");
@@ -29,15 +29,15 @@ public class CCASystem {
 						while (choice != 0) {
 							switch (choice) {
 							case 1:
-								// addUser();
+								addUser();
 
 								break;
 							case 2:
-								// viewUsers();
+								viewUsers();
 
 								break;
 							case 3:
-								// deleteUser();
+								deleteUser();
 
 								break;
 							case 4:
@@ -199,5 +199,63 @@ public class CCASystem {
 		System.out.println("0. Exit");
 		System.out.print("Enter your choice: ");
 	}
+	
+	public static void addUser(ArrayList<Users> users) {
+		String name = Helper.readString("Enter user name > ");
+		String role = Helper.readString("Enter user role > ");
+		String contact = Helper.readString("Enter user contact > ");
+
+		users.add(new Users(name, role, contact));
+		
+	
+		users.get(users.size()-1).display();
+
+	
+		System.out.println("*** User has been added ***");
+
+
+	}
+	
+	public static void viewUsers(ArrayList<Users> users) {
+		String output = String.format("%-10s %-15s %-20s\n", "NAME", "ROLE", "CONTACT");
+		
+		for (int i = 0; i < users.size(); i++) {
+			
+			output += String.format("%-10s %-15s %-20s\n", users.get(i).getName(),
+					users.get(i).getRole(), users.get(i).getContact());
+					
+					
+		}
+		System.out.println(output);
+	}
+	
+	public static boolean deleteUser(ArrayList<Users> users) {
+		String name = Helper.readString("Enter user name > ");
+
+		boolean userfound = false;
+		
+		for (int i = 0; i < users.size(); i++) {
+			if (name.equalsIgnoreCase(users.get(i).getName())) {
+				users.remove(i);
+				
+				char confirm = Helper.readChar("Confirm deletion (y/n) > ");
+				
+				if (confirm == 'y') {
+					userfound = true;
+					System.out.println("*** User has been deleted ***");
+				} else {
+					System.out.println("*** User is not deleted ***");
+				}
+				
+				
+			}
+        		
+		}
+
+		return userfound;
+	}
+
+
+	
 
 }
