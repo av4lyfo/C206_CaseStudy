@@ -257,7 +257,60 @@ public class CCASystem {
 
 		return userfound;
 	}
+	
+	//done by benedict
+	//add activity method
+	public static Activities addActivity() {
+	    String newActivityId = Helper.readString("Enter activity ID");
+	    String newActivityName = Helper.readString("Enter activity Name");
+	    String newActivityDesc = Helper.readString("Enter activity Description");
+	    
+	    Activities newActivity = new Activities(newActivityId, newActivityName, newActivityDesc);
+	    return newActivity;
+	}
+	public static void doAddActivity(ArrayList<Activities> activityList) {
+	    Activities newActivity = addActivity();
+	    activityList.add(newActivity);
+	    System.out.print("Activity added successfully");
+	}
+	//done by benedict 
+	//view all activities
+	public static void viewAllActivities(ArrayList<Activities> activityList) {
+	    System.out.println("List of All Activities:");
+	    for (Activities activity : activityList) {
+	        System.out.println("Activity ID: " + activity.getActivityId());
+	        System.out.println("Activity Name: " + activity.getaName());
+	        System.out.println("Activity Description: " + activity.getDescription());
+	        System.out.println("-----------------------------");
+	    }
+	}
+	//done by benedict
+	//delete activity
+	
+	public static boolean deleteActivity(ArrayList<Activities> activityList) {
+		String aname = Helper.readString("Enter user name > ");
 
+		boolean activityfound = false;
+
+		for (int i = 0; i < users.size(); i++) {
+			if (aname.equalsIgnoreCase(activityList.get(i).getaName())) {
+				users.remove(i);
+
+				char confirm = Helper.readChar("Confirm deletion (y/n) > ");
+
+				if (confirm == 'y') {
+					activityfound = true;
+					System.out.println("*** Activity has been deleted ***");
+				} else {
+					System.out.println("*** Activity is not deleted ***");
+				}
+
+			}
+
+		}
+
+		return activityfound;
+	}
 	// guys please add your code based on the order of your user story and use cases
 
 	// Done by Avinash
