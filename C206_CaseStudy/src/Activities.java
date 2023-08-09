@@ -22,9 +22,4 @@ public class Activities {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-
-	public String getActivityId() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }

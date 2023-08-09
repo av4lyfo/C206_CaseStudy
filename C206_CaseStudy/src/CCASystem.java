@@ -24,6 +24,8 @@ public class CCASystem {
 		registerActivities.add(new RegisterActivity("Art Club", "Zhi Yang", "0200 - 0400"));
 		registerActivities.add(new RegisterActivity("Chess Club", "Yik Kan", "0300 - 0500"));
 
+		registerActivities.get(2).setApprovalStatus("Approved");
+
 		Scanner scanner = new Scanner(System.in);
 		System.out.print("Enter your username (or 'Leave' to leave): ");
 		String name = scanner.nextLine();
@@ -42,15 +44,15 @@ public class CCASystem {
 						while (choice != 0) {
 							switch (choice) {
 							case 1:
-								// addUser();
+								addUser();
 
 								break;
 							case 2:
-								// viewUsers();
+								viewUsers();
 
 								break;
 							case 3:
-								// deleteUser();
+								deleteUser();
 
 								break;
 							case 4:
@@ -81,6 +83,7 @@ public class CCASystem {
 							}
 							displayAdminMenu();
 							choice = optionScanner.nextInt();
+							System.out.println("");
 						}
 
 					} else if (roles.equalsIgnoreCase("Teacher")) {
@@ -89,15 +92,15 @@ public class CCASystem {
 						while (choice != 0) {
 							switch (choice) {
 							case 1:
-								// addActivity();
+								addActivity();
 
 								break;
 							case 2:
-								// viewActivities();
+								viewActivities();
 
 								break;
 							case 3:
-								// deleteActivity();
+								deleteActivity();
 
 								break;
 							case 4:
@@ -122,8 +125,9 @@ public class CCASystem {
 							default:
 								System.out.println("Invalid choice. Please try again.");
 							}
-							displayAdminMenu();
+							displayTeacherMenu();
 							choice = optionScanner.nextInt();
+							System.out.println("");
 						}
 
 					} else if (roles.equalsIgnoreCase("Student")) {
@@ -132,19 +136,19 @@ public class CCASystem {
 						while (choice != 0) {
 							switch (choice) {
 							case 1:
-								// viewAvailableActivities();
+								viewAvailableActivities();
 
 								break;
 							case 2:
-								// registerForActivity();
+								registerForActivity(login);
 
 								break;
 							case 3:
-								// viewRegisteredActivities();
+								viewRegisteredActivities(login);
 
 								break;
 							case 4:
-								// leaveActivity();
+								leaveActivity(login);
 
 								break;
 							case 0:
@@ -153,14 +157,16 @@ public class CCASystem {
 							default:
 								System.out.println("Invalid choice. Please try again.");
 							}
-							displayAdminMenu();
+							displayStudentMenu();
 							choice = optionScanner.nextInt();
+							System.out.println("");
 						}
 
 					} else {
 						System.out.println("Invalid role entered.");
 						System.out.print("Enter your username (or 'Leave' to leave): ");
 						name = scanner.nextLine();
+						System.out.println("");
 					}
 				}
 
@@ -208,20 +214,42 @@ public class CCASystem {
 		System.out.print("Enter your choice: ");
 	}
 
-	public static void addUser(ArrayList<Users> users) {
-		String name = Helper.readString("Enter user name > ");
-		String role = Helper.readString("Enter user role > ");
-		String contact = Helper.readString("Enter user contact > ");
+	public static void addUser() {
+		String name = Helper.readString("Enter user name: ");
+		boolean exist = false;
 
-		users.add(new Users(name, role, contact));
+		for (int i = 0; i < users.size(); i++) {
+			if (name.equalsIgnoreCase(users.get(i).getName())) {
+				exist = true;
+			}
+		}
 
-		users.get(users.size() - 1).display();
+		String role = Helper.readString("Enter user role(Administrator/Teacher/Student): ");
+		boolean arole = false;
+		if (role.equalsIgnoreCase("Administrator")) {
+			role = "Administrator";
+			arole = true;
+		} else if (role.equalsIgnoreCase("Teacher")) {
+			role = "Teacher";
+			arole = true;
+		} else if (role.equalsIgnoreCase("Student")) {
+			role = "Student";
+			arole = true;
+		}
+		if (arole == true) {
+			String contact = Helper.readString("Enter user contact: ");
 
-		System.out.println("*** User has been added ***");
-
+			if (exist == false) {
+				users.add(new Users(name, role, contact));
+				users.get(users.size() - 1).display();
+				System.out.println("*** User has been added ***");
+			} else {
+				System.out.println("*** User already exists ***");
+			}
+		}
 	}
 
-	public static void viewUsers(ArrayList<Users> users) {
+	public static void viewUsers() {
 		String output = String.format("%-10s %-15s %-20s\n", "NAME", "ROLE", "CONTACT");
 
 		for (int i = 0; i < users.size(); i++) {
@@ -233,19 +261,16 @@ public class CCASystem {
 		System.out.println(output);
 	}
 
-	public static boolean deleteUser(ArrayList<Users> users) {
-		String name = Helper.readString("Enter user name > ");
-
-		boolean userfound = false;
+	public static void deleteUser() {
+		String name = Helper.readString("Enter user name: ");
 
 		for (int i = 0; i < users.size(); i++) {
 			if (name.equalsIgnoreCase(users.get(i).getName())) {
-				users.remove(i);
 
-				char confirm = Helper.readChar("Confirm deletion (y/n) > ");
+				char confirm = Helper.readChar("Confirm deletion (y/n): ");
 
 				if (confirm == 'y') {
-					userfound = true;
+					users.remove(i);
 					System.out.println("*** User has been deleted ***");
 				} else {
 					System.out.println("*** User is not deleted ***");
@@ -255,51 +280,51 @@ public class CCASystem {
 
 		}
 
-		return userfound;
 	}
-	
-	//done by benedict
-	//add activity method
-	public static Activities addActivity() {
-	    String newActivityId = Helper.readString("Enter activity ID");
-	    String newActivityName = Helper.readString("Enter activity Name");
-	    String newActivityDesc = Helper.readString("Enter activity Description");
-	    
-	    Activities newActivity = new Activities(newActivityId, newActivityName, newActivityDesc);
-	    return newActivity;
-	}
-	public static void doAddActivity(ArrayList<Activities> activityList) {
-	    Activities newActivity = addActivity();
-	    activityList.add(newActivity);
-	    System.out.print("Activity added successfully");
-	}
-	//done by benedict 
-	//view all activities
-	public static void viewAllActivities(ArrayList<Activities> activityList) {
-	    System.out.println("List of All Activities:");
-	    for (Activities activity : activityList) {
-	        System.out.println("Activity ID: " + activity.getActivityId());
-	        System.out.println("Activity Name: " + activity.getaName());
-	        System.out.println("Activity Description: " + activity.getDescription());
-	        System.out.println("-----------------------------");
-	    }
-	}
-	//done by benedict
-	//delete activity
-	
-	public static boolean deleteActivity(ArrayList<Activities> activityList) {
-		String aname = Helper.readString("Enter user name > ");
 
-		boolean activityfound = false;
+	// done by benedict
+	// add activity method
+	public static void addActivity() {
+		String newActivityName = Helper.readString("Enter activity Name");
+		String newActivityDesc = Helper.readString("Enter activity Description");
+		boolean exist = false;
+		for (int i = 0; i < activities.size(); i++) {
+			if (newActivityName.equalsIgnoreCase(activities.get(i).getaName())) {
+				exist = true;
+			}
+		}
+		if (exist == false) {
+			activities.add(new Activities(newActivityName, newActivityDesc));
+		} else {
+			System.out.println("*** Activity already exists ***");
+		}
+	}
 
-		for (int i = 0; i < users.size(); i++) {
-			if (aname.equalsIgnoreCase(activityList.get(i).getaName())) {
-				users.remove(i);
+	// done by benedict
+	// view all activities
+	public static void viewActivities() {
+		System.out.println("List of All Activities:");
+		String output = String.format("%-20s %-40s \n", "ACTIVITY", "DESCRIPTION");
+		for (int i = 0; i < activities.size(); i++) {
+
+			output += String.format("%-20s %-40s \n", activities.get(i).getaName(), activities.get(i).getDescription());
+
+		}
+		System.out.println(output);
+	}
+
+	// done by benedict
+	// delete activity
+	public static void deleteActivity() {
+		String aname = Helper.readString("Enter activity name > ");
+
+		for (int i = 0; i < activities.size(); i++) {
+			if (aname.equalsIgnoreCase(activities.get(i).getaName())) {
 
 				char confirm = Helper.readChar("Confirm deletion (y/n) > ");
 
 				if (confirm == 'y') {
-					activityfound = true;
+					activities.remove(i);
 					System.out.println("*** Activity has been deleted ***");
 				} else {
 					System.out.println("*** Activity is not deleted ***");
@@ -309,22 +334,21 @@ public class CCASystem {
 
 		}
 
-		return activityfound;
 	}
 	// guys please add your code based on the order of your user story and use cases
 
 	// Done by Avinash
 	// View approval statuses method
 	private static void viewRegistrations() {
+		String output = String.format("%-10s %-20s %-20s %-10s \n", "STUDENT", "ACTIVITY", "TIMESLOT", "STATUS");
 		for (int i = 0; i < registerActivities.size(); i++) {
-			System.out.println((i + 1) + ":");
-			System.out.println("Student name: " + registerActivities.get(i).getUsername());
-			System.out.println("Activity: " + registerActivities.get(i).getActivityName());
-			System.out.println("Timeslot: " + registerActivities.get(i).getTimeSlot());
-			System.out.println("Registration status: " + registerActivities.get(i).getApprovalStatus());
+			output += String.format("%-10s %-20s %-20s %-10s \n", registerActivities.get(i).getUsername(),
+					registerActivities.get(i).getActivityName(), registerActivities.get(i).getTimeSlot(),
+					registerActivities.get(i).getApprovalStatus());
 		}
+		System.out.println(output);
 	}
-	
+
 	// Done by Avinash
 	// Manage registration status
 	private static void editRegistrations() {
@@ -332,7 +356,7 @@ public class CCASystem {
 		String activityName = Helper.readString("Enter activity name: ");
 		String timeslot = Helper.readString("Enter timeslot(start - end): ");
 		boolean exist = false;
-		
+
 		for (int i = 0; i < registerActivities.size(); i++) {
 			if ((studentName.equalsIgnoreCase(registerActivities.get(i).getUsername()))
 					&& (activityName.equalsIgnoreCase(registerActivities.get(i).getActivityName()))
@@ -341,11 +365,18 @@ public class CCASystem {
 				String approval = Helper.readString("Enter new status for registration(Approved/Declined): ");
 				if (approval.equalsIgnoreCase("Approved") || approval.equalsIgnoreCase("Declined")) {
 					registerActivities.get(i).setAttendance(approval);
-					System.out.println("Registration updated");
+					System.out.println("*** Registration updated ***");
+				} else if (approval.equalsIgnoreCase("Declined")) {
+					registerActivities.get(i).setAttendance("Declined");
+					System.out.println("*** Registration updated ***");
 				} else {
-					System.out.println("Invalid approval status");
+					System.out.println("*** Invalid approval status ***");
 				}
 			}
+		}
+
+		if (exist == false) {
+			System.out.println("*** Registration not found ***");
 		}
 	}
 
@@ -365,28 +396,102 @@ public class CCASystem {
 				String newStatus = Helper.readString("Enter new attendance status(Present/Absent): ");
 				if (newStatus.equalsIgnoreCase("Present") || newStatus.equalsIgnoreCase("Absent")) {
 					registerActivities.get(i).setAttendance(newStatus);
-					System.out.println("Attendance updated");
+					System.out.println("*** Attendance updated ***");
+				} else if (newStatus.equalsIgnoreCase("Absent")) {
+					registerActivities.get(i).setAttendance("Absent");
+					System.out.println("*** Attendance updated ***");
 				} else {
-					System.out.println("Invalid status");
+					System.out.println("*** Invalid status ***");
 				}
 			}
 		}
 
 		if (exist == false) {
-			System.out.println("Registration not found");
+			System.out.println("*** Registration not found ***");
 		}
 	}
 
 	// Done by Isaac
 	// edit attendance
 	private static void viewAttendance() {
+		String output = String.format("%-10s %-20s %-20s %-10s \n", "STUDENT", "ACTIVITY", "TIMESLOT", "ATTENDANCE");
 		for (int i = 0; i < registerActivities.size(); i++) {
 			if (registerActivities.get(i).getApprovalStatus().equalsIgnoreCase("Approved")) {
-				System.out.println((i + 1) + ":");
-				System.out.println("Student name: " + registerActivities.get(i).getUsername());
-				System.out.println("Activity: " + registerActivities.get(i).getActivityName());
-				System.out.println("Timeslot: " + registerActivities.get(i).getTimeSlot());
-				System.out.println("Attendance: " + registerActivities.get(i).getAttendance());
+				output += String.format("%-10s %-20s %-20s %-10s \n", registerActivities.get(i).getUsername(),
+						registerActivities.get(i).getActivityName(), registerActivities.get(i).getTimeSlot(),
+						registerActivities.get(i).getAttendance());
+			}
+		}
+		System.out.println(output);
+	}
+
+	// Done by Yik Kan
+	// register for an activity
+	private static void viewAvailableActivities() {
+		System.out.println("Available Activities:");
+		String output = String.format("%-15s %-40s %-10s \n", "ACTIVITY", "DESCRIPTION", "TIMESLOT");
+		for (int i = 0; i < timeSlots.size(); i++) {
+			String actName = timeSlots.get(i).getAname();
+			String actDes = "";
+			for (int x = 0; x < activities.size(); x++) {
+				if (actName.equalsIgnoreCase(activities.get(x).getaName())) {
+					actDes = activities.get(x).getDescription();
+				}
+			}
+			output += String.format("%-15s %-40s %-10s \n", actName, actDes,
+					timeSlots.get(i).getTimeslot());
+		}
+		System.out.println(output);
+	}
+
+	// Done by Yik Kan
+	// register for an activity
+	private static void registerForActivity(Users login) {
+		String name = login.getName();
+		String activityName = Helper.readString("Enter activity name: ");
+		String timeslot = Helper.readString("Enter timeslot(start - end): ");
+		for (int i = 0; i < timeSlots.size(); i++) {
+			if ((activityName.equalsIgnoreCase(timeSlots.get(i).getAname()))
+					&& (timeslot.equalsIgnoreCase(timeSlots.get(i).getTimeslot()))) {
+				registerActivities.add(new RegisterActivity(activityName, name, timeslot));
+				System.out.println("*** Registration successful ***");
+			}
+		}
+	}
+
+	// Done by Yik Kan
+	// register for an activity
+	private static void viewRegisteredActivities(Users login) {
+		String name = login.getName();
+		String output = String.format("%-10s %-20s %-20s %-10s %-10s \n", "STUDENT", "ACTIVITY", "TIMESLOT", "APPROVAL",
+				"ATTENDANCE");
+		for (int i = 0; i < registerActivities.size(); i++) {
+			if (name.equalsIgnoreCase(registerActivities.get(i).getUsername())) {
+				output += String.format("%-10s %-20s %-20s %-10s %-10s \n", registerActivities.get(i).getUsername(),
+						registerActivities.get(i).getActivityName(), registerActivities.get(i).getTimeSlot(),
+						registerActivities.get(i).getApprovalStatus(), registerActivities.get(i).getAttendance());
+			}
+		}
+		System.out.println(output);
+	}
+
+	// Done by Yik Kan
+	// register for an activity
+	private static void leaveActivity(Users login) {
+		String name = login.getName();
+		String activityName = Helper.readString("Enter activity name: ");
+		String timeslot = Helper.readString("Enter timeslot(start - end): ");
+		for (int i = 0; i < registerActivities.size(); i++) {
+			if ((name.equalsIgnoreCase(registerActivities.get(i).getUsername()))
+					&& (activityName.equalsIgnoreCase(registerActivities.get(i).getActivityName()))
+					&& (timeslot.equalsIgnoreCase(registerActivities.get(i).getTimeSlot()))) {
+				char confirm = Helper.readChar("Are you sure to cancel this registration(y/n): ");
+				if (confirm == 'y') {
+					registerActivities.remove(i);
+					System.out.println("*** Registration has been deleted ***");
+				} else {
+					System.out.println("*** Cancellation has cancelled ***");
+				}
 			}
 		}
 	}
