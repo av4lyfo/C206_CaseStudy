@@ -1,12 +1,10 @@
 public class Activities {
 	private String aName;
 	private String description;
-    private String timeSlot;
     
-    public Activities(String aName, String description, String timeSlot) {
+    public Activities(String aName, String description) {
     	this.aName = aName;
         this.description = description;
-        this.timeSlot = timeSlot;
     }
 
 	public String getaName() {
@@ -23,13 +21,5 @@ public class Activities {
 
 	public void setDescription(String description) {
 		this.description = description;
-	}
-
-	public String getTimeSlot() {
-		return timeSlot;
-	}
-
-	public void setTimeSlot(String timeSlot) {
-		this.timeSlot = timeSlot;
 	}
 }
