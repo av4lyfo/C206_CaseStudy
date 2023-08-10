@@ -520,12 +520,17 @@ public class CCASystem {
 		String name = login.getName();
 		String activityName = Helper.readString("Enter activity name: ");
 		String timeslot = Helper.readString("Enter timeslot(start - end): ");
+		boolean exist = false;
 		for (int i = 0; i < timeSlots.size(); i++) {
 			if ((activityName.equalsIgnoreCase(timeSlots.get(i).getAname()))
 					&& (timeslot.equalsIgnoreCase(timeSlots.get(i).getTimeslot()))) {
 				registerActivities.add(new RegisterActivity(activityName, name, timeslot));
 				System.out.println("*** Registration successful ***");
+				exist = true;
 			}
+		}
+		if(exist == false) {
+			System.out.println("*** Activity does not exist ***");
 		}
 	}
 
