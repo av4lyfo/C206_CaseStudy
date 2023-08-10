@@ -354,7 +354,7 @@ public class CCASystem {
 
 	// Done by Avinash
 	// View approval statuses method
-	private static void addApprovalStatus() {
+	public static void addApprovalStatus() {
 		String studentName = Helper.readString("Enter student name: ");
 		String activityName = Helper.readString("Enter activity name: ");
 		String timeslot = Helper.readString("Enter timeslot(start - end): ");
@@ -385,7 +385,7 @@ public class CCASystem {
 
 	// Done by Avinash
 	// View approval statuses method
-	private static void viewApprovalStatus() {
+	public static void viewApprovalStatus() {
 		String output = String.format("%-10s %-20s %-20s %-10s \n", "STUDENT", "ACTIVITY", "TIMESLOT", "STATUS");
 		for (int i = 0; i < registerActivities.size(); i++) {
 			output += String.format("%-10s %-20s %-20s %-10s \n", registerActivities.get(i).getUsername(),
@@ -397,7 +397,7 @@ public class CCASystem {
 
 	// Done by Avinash
 	// Manage registration status
-	private static void deleteApprovalStatus() {
+	public static void deleteApprovalStatus() {
 		String studentName = Helper.readString("Enter student name: ");
 		String activityName = Helper.readString("Enter activity name: ");
 		String timeslot = Helper.readString("Enter timeslot(start - end): ");
@@ -425,7 +425,7 @@ public class CCASystem {
 
 	// Done by Isaac
 	// edit attendance
-	private static void addAttendance() {
+	public static void addAttendance() {
 		String studentName = Helper.readString("Enter student name: ");
 		String activityName = Helper.readString("Enter activity name: ");
 		String timeslot = Helper.readString("Enter timeslot(start - end): ");
@@ -456,7 +456,7 @@ public class CCASystem {
 
 	// Done by Isaac
 	// edit attendance
-	private static void viewAttendance() {
+	public static void viewAttendance() {
 		String output = String.format("%-10s %-20s %-20s %-10s \n", "STUDENT", "ACTIVITY", "TIMESLOT", "ATTENDANCE");
 		for (int i = 0; i < registerActivities.size(); i++) {
 			if (registerActivities.get(i).getApprovalStatus().equalsIgnoreCase("Approved")) {
@@ -470,7 +470,7 @@ public class CCASystem {
 
 	// Done by Isaac
 	// edit attendance
-	private static void deleteAttendance() {
+	public static void deleteAttendance() {
 		String studentName = Helper.readString("Enter student name: ");
 		String activityName = Helper.readString("Enter activity name: ");
 		String timeslot = Helper.readString("Enter timeslot(start - end): ");
@@ -498,7 +498,7 @@ public class CCASystem {
 
 	// Done by Yik Kan
 	// register for an activity
-	private static void viewAvailableActivities() {
+	public static void viewAvailableActivities() {
 		System.out.println("Available Activities:");
 		String output = String.format("%-15s %-40s %-10s \n", "ACTIVITY", "DESCRIPTION", "TIMESLOT");
 		for (int i = 0; i < timeSlots.size(); i++) {
@@ -516,7 +516,7 @@ public class CCASystem {
 
 	// Done by Yik Kan
 	// register for an activity
-	private static void registerForActivity(Users login) {
+	public static void registerForActivity(Users login) {
 		String name = login.getName();
 		String activityName = Helper.readString("Enter activity name: ");
 		String timeslot = Helper.readString("Enter timeslot(start - end): ");
@@ -536,7 +536,7 @@ public class CCASystem {
 
 	// Done by Yik Kan
 	// register for an activity
-	private static void viewRegisteredActivities(Users login) {
+	public static void viewRegisteredActivities(Users login) {
 		String name = login.getName();
 		String output = String.format("%-10s %-20s %-20s %-10s %-10s \n", "STUDENT", "ACTIVITY", "TIMESLOT", "APPROVAL",
 				"ATTENDANCE");
@@ -552,7 +552,7 @@ public class CCASystem {
 
 	// Done by Yik Kan
 	// register for an activity
-	private static void leaveActivity(Users login) {
+	public static void leaveActivity(Users login) {
 		String name = login.getName();
 		String activityName = Helper.readString("Enter activity name: ");
 		String timeslot = Helper.readString("Enter timeslot(start - end): ");
@@ -575,7 +575,7 @@ public class CCASystem {
 	// Done by Sze Yan
 	// timeslot shit
 
-	private static void addTimeSlot() {
+	public static void addTimeSlot() {
 		String activityName = Helper.readString("Enter activity name: ");
 		boolean exist = false;
 		
