@@ -9,15 +9,9 @@ import org.junit.Test;
 public class C206_CaseStudyTest {
 	
 	private Activities a1;
-	private Activities a2;
 	private RegisterActivity r1;
-	private RegisterActivity r2;
 	private TimeSlot t1;
-	private TimeSlot t2;
 	private Users u1;
-	private Users u2;
-	private Users u3;
-	private Users u4;
 	
 	private ArrayList<Activities> actList;
 	private ArrayList<RegisterActivity> regList;
@@ -31,15 +25,9 @@ public class C206_CaseStudyTest {
 	@Before
 	public void setUp() throws Exception {
 		a1 = new Activities("Soccer", "Soccer is fun");
-		a2 = new Activities("Tennis", "Tennis is fun");
 		r1 = new RegisterActivity("Soccer", "Tom", "1000 - 1200");
-		r1 = new RegisterActivity("Tennis", "Jerry", "1300 - 1500");
 		t1 = new TimeSlot("Soccer", "1000 - 1200");
-		t2 = new TimeSlot("Tennis", "1300 - 1500");
 		u1 = new Users("Tom", "Student", "1111");
-		u2 = new Users("Jerry", "Student", "2222");
-		u3 = new Users("teacher", "Teacher", "6969");
-		u4 = new Users("admin", "Administrator", "4200");
 		
 		actList = new ArrayList<Activities>();
 		regList = new ArrayList<RegisterActivity>();
@@ -49,39 +37,70 @@ public class C206_CaseStudyTest {
 	}
 	
 	@Test
-	public void testAddCamcorder() {
+	public void testEmptyList() {
 		// Item list is not null and it is empty
-		assertNotNull("Test if there is valid Camcorder arraylist to add to", camcorderList);
-		assertEquals("Test that the Camcorder arraylist is empty.", 0, camcorderList.size());
+		assertTrue(!actList.isEmpty());
+		assertTrue(!regList.isEmpty());
+		assertTrue(!tsList.isEmpty());
+		assertTrue(!userList.isEmpty());
+	}
+	
+	@Test
+	public void testAdd() {
+		assertTrue(!actList.isEmpty());
+		actList.add(a1);
+		assertEquals("Test that activity has been added into activity arraylist", actList.size(), 1);
 		
+		assertTrue(!regList.isEmpty());
+		regList.add(r1);
+		assertEquals("Test that registered activity has been added into registered activity arraylist", regList.size(), 1);
 		
-		// Given an empty list, after adding 1 item, the size of the list is 1
-		ResourceCentre.addCamcorder(camcorderList, cc1);
-		assertEquals("Test that the Camcorder arraylist size is 1.", 1, camcorderList.size());
-
+		assertTrue(!tsList.isEmpty());
+		tsList.add(t1);
+		assertEquals("Test that timeslot has been added into timeslot arraylist", tsList.size(), 1);
 		
-		// Add an item
-		ResourceCentre.addCamcorder(camcorderList, cc2);
-		assertEquals("Test that the Camcorder arraylist size is now 2.", 2, camcorderList.size());
+		assertTrue(!userList.isEmpty());
+		userList.add(u1);
+		assertEquals("Test that user has been added into user arraylist", userList.size(), 1);
+	}
+	
+	@Test
+	public void testDelete() {
+		assertTrue(!actList.isEmpty());
+		actList.add(a1);
+		assertEquals("Test that activity has been added into activity arraylist", actList.size(), 1);
+		actList.remove(0);
+		assertTrue(!actList.isEmpty());
 		
+		assertTrue(!regList.isEmpty());
+		regList.add(r1);
+		assertEquals("Test that registered activity has been added into registered activity arraylist", regList.size(), 1);
+		regList.remove(0);
+		assertTrue(!regList.isEmpty());
 		
-		// The item just added is as same as the last item in the list
-		assertSame("Test that Camcorder is added to the end of the list.", cc2, camcorderList.get(1));
-
+		assertTrue(!tsList.isEmpty());
+		tsList.add(t1);
+		assertEquals("Test that timeslot has been added into timeslot arraylist", tsList.size(), 1);
+		tsList.remove(0);
+		assertTrue(!tsList.isEmpty());
 		
-		// Add an item that already exists in the list
-		ResourceCentre.addCamcorder(camcorderList, cc2);
-		assertEquals("Test that the Camcorder arraylist size is unchange.", 2, camcorderList.size());
-
-		
-		// Add an item that has missing detail
-		Camcorder cc_missing = new Camcorder("CC0014", "", 60);
-		ResourceCentre.addCamcorder(camcorderList, cc_missing);
-		assertEquals("Test that the Camcorder arraylist size is unchange.", 2, camcorderList.size());
+		assertTrue(!userList.isEmpty());
+		userList.add(u1);
+		assertEquals("Test that user has been added into user arraylist", userList.size(), 1);
+		userList.remove(0);
+		assertTrue(!userList.isEmpty());
 	}
 
 	@After
 	public void tearDown() throws Exception {
+		a1 = null;
+		r1 = null;
+		u1 = null;
+		t1 = null;
+		actList = null;
+		regList = null;
+		tsList = null;
+		userList = null;
 	}
 
 	@Test
