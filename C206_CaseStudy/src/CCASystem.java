@@ -565,5 +565,45 @@ public class CCASystem {
 				}
 			}
 		}
+			
+		}
+	
+		// Done by Sze Yan
+		// timeslot shit
+
+				private static void timeSlots() {
+				    String activityName = Helper.readString("Enter activity name: ");
+				    String timeslot = Helper.readString("Enter timeslot(start - end): ");
+
+				    timeSlots.add(new TimeSlot(activityName, timeslot));
+				    System.out.println("*** Time slot has been added ***");
+				}
+
+				public static void viewTimeSlots() {
+				    String output = String.format("%-15s %-15s \n", "ACTIVITY", "TIMESLOT");
+				    for (TimeSlot slot : timeSlots) {
+				        output += String.format("%-15s %-15s \n", slot.getAname(), slot.getTimeslot());
+				    }
+				    System.out.println(output);
+				}
+
+				public static void deleteTimeSlot() {
+				    String activityName = Helper.readString("Enter activity name: ");
+				    String timeslot = Helper.readString("Enter timeslot(start - end): ");
+
+				    for (int i = 0; i < timeSlots.size(); i++) {
+				        if (activityName.equalsIgnoreCase(timeSlots.get(i).getAname())
+				                && timeslot.equalsIgnoreCase(timeSlots.get(i).getTimeslot())) {
+
+				            char confirm = Helper.readChar("Confirm deletion (y/n): ");
+
+				            if (confirm == 'y') {
+				                timeSlots.remove(i);
+				                System.out.println("*** Time slot has been deleted ***");
+				            } else {
+				                System.out.println("*** Time slot is not deleted ***");
+				            }
+				        }
+				    }
 	}
 }
