@@ -10,7 +10,7 @@ public class RegisterActivity {
     	this.username = username;
     	this.timeSlot = timeSlot;
     	this.approvalStatus = "Pending";
-    	this.attendance = "Absent";
+    	this.attendance = "";
     }
 
 	public String getActivityName() {

@@ -56,22 +56,26 @@ public class CCASystem {
 
 								break;
 							case 4:
-								viewRegistrations();
+								addApprovalStatus();
 
 								break;
 							case 5:
-								editRegistrations();
+								viewApprovalStatus();
 
 								break;
 							case 6:
-								// addTimeSlot();
+								deleteApprovalStatus();
 
 								break;
 							case 7:
-								// viewTimeSlots();
+								// addTimeSlot();
 
 								break;
 							case 8:
+								// viewTimeSlots();
+
+								break;
+							case 9:
 								// deleteTimeSlot();
 
 								break;
@@ -104,19 +108,27 @@ public class CCASystem {
 
 								break;
 							case 4:
-								viewRegistrations();
+								addApprovalStatus();
 
 								break;
 							case 5:
-								editRegistrations();
+								viewApprovalStatus();
 
 								break;
 							case 6:
-								editAttendance();
+								deleteApprovalStatus();
 
 								break;
 							case 7:
+								addAttendance();
+
+								break;
+							case 8:
 								viewAttendance();
+
+								break;
+							case 9:
+								deleteAttendance();
 
 								break;
 							case 0:
@@ -182,11 +194,12 @@ public class CCASystem {
 		System.out.println("1. Add User");
 		System.out.println("2. View Users");
 		System.out.println("3. Delete User");
-		System.out.println("4. View Registrations");
-		System.out.println("5. Manage Registration Approval");
-		System.out.println("6. Add Time Slot");
-		System.out.println("7. View Time Slots");
-		System.out.println("8. Delete Time Slot");
+		System.out.println("4. Add Approval Status");
+		System.out.println("5. View Approval Status");
+		System.out.println("5. Delete Approval Status");
+		System.out.println("7. Add Time Slot");
+		System.out.println("8. View Time Slots");
+		System.out.println("9. Delete Time Slot");
 		System.out.println("0. Exit");
 		System.out.print("Enter your choice: ");
 	}
@@ -339,19 +352,7 @@ public class CCASystem {
 
 	// Done by Avinash
 	// View approval statuses method
-	private static void viewRegistrations() {
-		String output = String.format("%-10s %-20s %-20s %-10s \n", "STUDENT", "ACTIVITY", "TIMESLOT", "STATUS");
-		for (int i = 0; i < registerActivities.size(); i++) {
-			output += String.format("%-10s %-20s %-20s %-10s \n", registerActivities.get(i).getUsername(),
-					registerActivities.get(i).getActivityName(), registerActivities.get(i).getTimeSlot(),
-					registerActivities.get(i).getApprovalStatus());
-		}
-		System.out.println(output);
-	}
-
-	// Done by Avinash
-	// Manage registration status
-	private static void editRegistrations() {
+	private static void addApprovalStatus() {
 		String studentName = Helper.readString("Enter student name: ");
 		String activityName = Helper.readString("Enter activity name: ");
 		String timeslot = Helper.readString("Enter timeslot(start - end): ");
@@ -380,9 +381,50 @@ public class CCASystem {
 		}
 	}
 
+	// Done by Avinash
+	// View approval statuses method
+	private static void viewApprovalStatus() {
+		String output = String.format("%-10s %-20s %-20s %-10s \n", "STUDENT", "ACTIVITY", "TIMESLOT", "STATUS");
+		for (int i = 0; i < registerActivities.size(); i++) {
+			output += String.format("%-10s %-20s %-20s %-10s \n", registerActivities.get(i).getUsername(),
+					registerActivities.get(i).getActivityName(), registerActivities.get(i).getTimeSlot(),
+					registerActivities.get(i).getApprovalStatus());
+		}
+		System.out.println(output);
+	}
+
+	// Done by Avinash
+	// Manage registration status
+	private static void deleteApprovalStatus() {
+		String studentName = Helper.readString("Enter student name: ");
+		String activityName = Helper.readString("Enter activity name: ");
+		String timeslot = Helper.readString("Enter timeslot(start - end): ");
+		boolean exist = false;
+
+		for (int i = 0; i < registerActivities.size(); i++) {
+			if ((studentName.equalsIgnoreCase(registerActivities.get(i).getUsername()))
+					&& (activityName.equalsIgnoreCase(registerActivities.get(i).getActivityName()))
+					&& (timeslot.equals(registerActivities.get(i).getTimeSlot()))) {
+				exist = true;
+				char confirm = Helper.readChar("Are you sure to delete this Approval Status(y/n): ");
+				if (confirm == 'y') {
+					registerActivities.get(i).setApprovalStatus("Pending");
+					System.out.println("*** Registration has been deleted ***");
+				} else {
+					System.out.println("*** Cancellation has cancelled ***");
+				}
+			}
+		}
+
+		if (exist == false) {
+			System.out.println("*** Registration not found ***");
+		}
+	}
+
+
 	// Done by Isaac
 	// edit attendance
-	private static void editAttendance() {
+	private static void addAttendance() {
 		String studentName = Helper.readString("Enter student name: ");
 		String activityName = Helper.readString("Enter activity name: ");
 		String timeslot = Helper.readString("Enter timeslot(start - end): ");
@@ -396,10 +438,10 @@ public class CCASystem {
 				String newStatus = Helper.readString("Enter new attendance status(Present/Absent): ");
 				if (newStatus.equalsIgnoreCase("Present") || newStatus.equalsIgnoreCase("Absent")) {
 					registerActivities.get(i).setAttendance(newStatus);
-					System.out.println("*** Attendance updated ***");
+					System.out.println("*** Attendance added ***");
 				} else if (newStatus.equalsIgnoreCase("Absent")) {
 					registerActivities.get(i).setAttendance("Absent");
-					System.out.println("*** Attendance updated ***");
+					System.out.println("*** Attendance added ***");
 				} else {
 					System.out.println("*** Invalid status ***");
 				}
@@ -425,6 +467,34 @@ public class CCASystem {
 		System.out.println(output);
 	}
 
+	// Done by Isaac
+	// edit attendance
+	private static void deleteAttendance() {
+		String studentName = Helper.readString("Enter student name: ");
+		String activityName = Helper.readString("Enter activity name: ");
+		String timeslot = Helper.readString("Enter timeslot(start - end): ");
+		boolean exist = false;
+
+		for (int i = 0; i < registerActivities.size(); i++) {
+			if ((studentName.equalsIgnoreCase(registerActivities.get(i).getUsername()))
+					&& (activityName.equalsIgnoreCase(registerActivities.get(i).getActivityName()))
+					&& (timeslot.equals(registerActivities.get(i).getTimeSlot()))) {
+				exist = true;
+				char confirm = Helper.readChar("Are you sure to delete this attendance(y/n): ");
+				if (confirm == 'y') {
+					registerActivities.get(i).setAttendance("");
+					System.out.println("*** Attendance has been deleted ***");
+				} else {
+					System.out.println("*** Deletion has cancelled ***");
+				}
+			}
+		}
+
+		if (exist == false) {
+			System.out.println("*** Registration not found ***");
+		}
+	}
+
 	// Done by Yik Kan
 	// register for an activity
 	private static void viewAvailableActivities() {
@@ -438,8 +508,7 @@ public class CCASystem {
 					actDes = activities.get(x).getDescription();
 				}
 			}
-			output += String.format("%-15s %-40s %-10s \n", actName, actDes,
-					timeSlots.get(i).getTimeslot());
+			output += String.format("%-15s %-40s %-10s \n", actName, actDes, timeSlots.get(i).getTimeslot());
 		}
 		System.out.println(output);
 	}
