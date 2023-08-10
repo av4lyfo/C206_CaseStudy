@@ -68,15 +68,15 @@ public class CCASystem {
 
 								break;
 							case 7:
-								// addTimeSlot();
+								addTimeSlot();
 
 								break;
 							case 8:
-								// viewTimeSlots();
+								viewTimeSlot();
 
 								break;
 							case 9:
-								// deleteTimeSlot();
+								deleteTimeSlot();
 
 								break;
 							case 0:
@@ -423,7 +423,6 @@ public class CCASystem {
 		}
 	}
 
-
 	// Done by Isaac
 	// edit attendance
 	private static void addAttendance() {
@@ -565,45 +564,55 @@ public class CCASystem {
 				}
 			}
 		}
-			
+
+	}
+
+	// Done by Sze Yan
+	// timeslot shit
+
+	private static void addTimeSlot() {
+		String activityName = Helper.readString("Enter activity name: ");
+		boolean exist = false;
+		
+		for(int i = 0; i<activities.size(); i++) {
+			if (activityName.equalsIgnoreCase(activities.get(i).getaName())) {
+				String timeslot = Helper.readString("Enter timeslot(start - end): ");
+				exist = true;
+				timeSlots.add(new TimeSlot(activityName, timeslot));
+				System.out.println("*** Time slot has been added ***");
+			}
+		}if (exist == false) {
+			System.out.println("*** Activity not found ***");
 		}
-	
-		// Done by Sze Yan
-		// timeslot shit
+	}
 
-				private static void timeSlots() {
-				    String activityName = Helper.readString("Enter activity name: ");
-				    String timeslot = Helper.readString("Enter timeslot(start - end): ");
+	public static void viewTimeSlot() {
+		String output = String.format("%-15s %-15s \n", "ACTIVITY", "TIMESLOT");
+		for (TimeSlot slot : timeSlots) {
+			output += String.format("%-15s %-15s \n", slot.getAname(), slot.getTimeslot());
+		}
+		System.out.println(output);
+	}
 
-				    timeSlots.add(new TimeSlot(activityName, timeslot));
-				    System.out.println("*** Time slot has been added ***");
+	public static void deleteTimeSlot() {
+		String activityName = Helper.readString("Enter activity name: ");
+		String timeslot = Helper.readString("Enter timeslot(start - end): ");
+		boolean exist = false;
+
+		for (int i = 0; i < timeSlots.size(); i++) {
+			if (activityName.equalsIgnoreCase(timeSlots.get(i).getAname())
+					&& timeslot.equalsIgnoreCase(timeSlots.get(i).getTimeslot())) {
+				exist = true;
+				char confirm = Helper.readChar("Confirm deletion (y/n): ");
+				if (confirm == 'y') {
+					timeSlots.remove(i);
+					System.out.println("*** Time slot has been deleted ***");
+				} else {
+					System.out.println("*** Time slot is not deleted ***");
 				}
-
-				public static void viewTimeSlots() {
-				    String output = String.format("%-15s %-15s \n", "ACTIVITY", "TIMESLOT");
-				    for (TimeSlot slot : timeSlots) {
-				        output += String.format("%-15s %-15s \n", slot.getAname(), slot.getTimeslot());
-				    }
-				    System.out.println(output);
-				}
-
-				public static void deleteTimeSlot() {
-				    String activityName = Helper.readString("Enter activity name: ");
-				    String timeslot = Helper.readString("Enter timeslot(start - end): ");
-
-				    for (int i = 0; i < timeSlots.size(); i++) {
-				        if (activityName.equalsIgnoreCase(timeSlots.get(i).getAname())
-				                && timeslot.equalsIgnoreCase(timeSlots.get(i).getTimeslot())) {
-
-				            char confirm = Helper.readChar("Confirm deletion (y/n): ");
-
-				            if (confirm == 'y') {
-				                timeSlots.remove(i);
-				                System.out.println("*** Time slot has been deleted ***");
-				            } else {
-				                System.out.println("*** Time slot is not deleted ***");
-				            }
-				        }
-				    }
+			}
+		}if (exist == false) {
+			System.out.println("*** Timeslot not found ***");
+		}
 	}
 }
