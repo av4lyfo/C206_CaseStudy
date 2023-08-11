@@ -105,6 +105,28 @@ public class C206_CaseStudyTest {
 		assertFalse(userList.add(null));
 		assertEquals("Test that null will not be added into user arraylist", userList.size(), 1);
 	}
+	
+	@Test 
+	public void testAddAttendance() {
+		assertTrue(!regList.isEmpty());
+		regList.add(r1);
+		assertEquals("Test that registered activity has been added into registered activity arraylist", regList.size(),
+				1);
+		
+		regList.get(0).setAttendance("Present");
+		assertTrue(!regList.get(0).getAttendance().isEmpty());
+	}
+	
+	@Test
+	public void testAddApproval() {
+		assertTrue(!regList.isEmpty());
+		regList.add(r1);
+		assertEquals("Test that registered activity has been added into registered activity arraylist", regList.size(),
+				1);
+		
+		regList.get(0).setApprovalStatus("Approved");;
+		assertTrue(!regList.get(0).getApprovalStatus().isEmpty());
+	}
 
 	@Test
 	public void testViewActivity() {
@@ -142,6 +164,26 @@ public class C206_CaseStudyTest {
 		assertTrue(userList.get(0).getName().equalsIgnoreCase("Tom"));
 		assertTrue(userList.get(0).getRole().equalsIgnoreCase("Student"));
 		assertTrue(userList.get(0).getContact().equalsIgnoreCase("1111"));
+	}
+	
+	@Test
+	public void testViewAttendance() {
+		assertTrue(!regList.isEmpty());
+		regList.add(r1);
+		assertEquals("Test that registered activity has been added into registered activity arraylist", regList.size(), 1);
+		
+		regList.get(0).setAttendance("Present");
+		assertTrue(regList.get(0).getAttendance().equalsIgnoreCase("Present"));
+	}
+	
+	@Test
+	public void testViewApproval() {
+		assertTrue(!regList.isEmpty());
+		regList.add(r1);
+		assertEquals("Test that registered activity has been added into registered activity arraylist", regList.size(), 1);
+		
+		regList.get(0).setApprovalStatus("Approved");;
+		assertTrue(regList.get(0).getApprovalStatus().equalsIgnoreCase("Approved"));
 	}
 	
 	@Test
@@ -193,6 +235,32 @@ public class C206_CaseStudyTest {
 		
 		//test case 2
 		assertFalse(userList.remove(u1));
+	}
+	
+	@Test
+	public void testDeleteAttendance() {
+		assertTrue(!regList.isEmpty());
+		regList.add(r1);
+		assertEquals("Test that registered activity has been added into registered activity arraylist", regList.size(),
+				1);
+		regList.get(0).setAttendance("Present");
+		assertTrue(regList.get(0).getAttendance().isEmpty());
+		
+		regList.get(0).setAttendance(null);
+		assertTrue(regList.get(0).getAttendance().isEmpty());
+	}
+	
+	@Test
+	public void testDeleteApproval() {
+		assertTrue(!regList.isEmpty());
+		regList.add(r1);
+		assertEquals("Test that registered activity has been added into registered activity arraylist", regList.size(),
+				1);
+		regList.get(0).setApprovalStatus("Approved");
+		assertTrue(!regList.get(0).getApprovalStatus().isEmpty());
+		
+		regList.get(0).setApprovalStatus(null);
+		assertTrue(regList.get(0).getApprovalStatus().isEmpty());
 	}
 
 	@After

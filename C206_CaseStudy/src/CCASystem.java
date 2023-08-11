@@ -424,7 +424,7 @@ public class CCASystem {
 	}
 
 	// Done by Isaac
-	// edit attendance
+	// add attendance
 	public static void addAttendance() {
 		String studentName = Helper.readString("Enter student name: ");
 		String activityName = Helper.readString("Enter activity name: ");
@@ -455,7 +455,7 @@ public class CCASystem {
 	}
 
 	// Done by Isaac
-	// edit attendance
+	// view attendance
 	public static void viewAttendance() {
 		String output = String.format("%-10s %-20s %-20s %-10s \n", "STUDENT", "ACTIVITY", "TIMESLOT", "ATTENDANCE");
 		for (int i = 0; i < registerActivities.size(); i++) {
@@ -469,7 +469,7 @@ public class CCASystem {
 	}
 
 	// Done by Isaac
-	// edit attendance
+	// delete attendance
 	public static void deleteAttendance() {
 		String studentName = Helper.readString("Enter student name: ");
 		String activityName = Helper.readString("Enter activity name: ");
@@ -497,7 +497,7 @@ public class CCASystem {
 	}
 
 	// Done by Yik Kan
-	// register for an activity
+	// view all activities
 	public static void viewAvailableActivities() {
 		System.out.println("Available Activities:");
 		String output = String.format("%-15s %-40s %-10s \n", "ACTIVITY", "DESCRIPTION", "TIMESLOT");
@@ -535,7 +535,7 @@ public class CCASystem {
 	}
 
 	// Done by Yik Kan
-	// register for an activity
+	// view registered activities
 	public static void viewRegisteredActivities(Users login) {
 		String name = login.getName();
 		String output = String.format("%-10s %-20s %-20s %-10s %-10s \n", "STUDENT", "ACTIVITY", "TIMESLOT", "APPROVAL",
@@ -551,7 +551,7 @@ public class CCASystem {
 	}
 
 	// Done by Yik Kan
-	// register for an activity
+	// delete registered activity
 	public static void leaveActivity(Users login) {
 		String name = login.getName();
 		String activityName = Helper.readString("Enter activity name: ");
